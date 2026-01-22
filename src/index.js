@@ -16,8 +16,26 @@ export default {
 	async fetch(request, env, ctx) {
 		const url = new URL(request.url);
 		if (url.pathname.startsWith('/api/')) {
+			let body = '';
 			// TODO: Add your custom /api/* logic here.
-			return new Response('Ok');
+			switch (request.method) {
+				case 'GET':
+					let list = await env.KV.list();
+					let results = [];
+					let i = 0;
+					for (const key of list.keys) {
+						results.push({ title: await env.KV.get(key.name), id: i });
+						i++;
+					}
+					body = JSON.stringify(results);
+					break;
+				case 'POST':
+					body = 'hang on.';
+					break;
+				default:
+					return new Response('no.');
+			}
+			return new Response(body);
 		}
 		// Passes the incoming request through to the assets binding.
 		// No asset matched this request, so this will evaluate `not_found_handling` behavior.

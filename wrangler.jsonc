@@ -26,9 +26,10 @@
 		{
 		  "binding": "KV",
 		  "id": "5449881e46d64b6dbb00af58779fc9d1",
+		  "remote": true,
 		  
 		  // Optional: preview_id used when running `wrangler dev` for local dev
-		  "preview_id": "<ID_OF_PREVIEW_KV_NAMESPACE_FOR_LOCAL_DEVELOPMENT>"
+		  //"preview_id": "<ID_OF_PREVIEW_KV_NAMESPACE_FOR_LOCAL_DEVELOPMENT>"
 		}
 	  ],
 	/**

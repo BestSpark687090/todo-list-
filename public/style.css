@@ -1,32 +1,68 @@
+:root {
+	--background: light-dark(white, black);
+	--color: light-dark(black, white);
+	--color-2: #aa0000;
+	--height: 20vh;
+	--lin-grad-bg: linear-gradient(180deg, var(--color-2), var(--background));
+	--rad-grad-bg: radial-gradient(circle, var(--background), var(--color-2));
+	color-scheme: dark;
+}
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+	font-family: Arial, sans-serif;
+	background: var(--lin-grad-bg);
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	flex-direction: row;
+	align-content: center;
+	justify-content: space-evenly;
+	align-items: center;
+}
+html,
+body {
+	width: 100vw;
+	height: 100vh;
+	overflow: clip;
+	margin: 0;
 }
 
 #app {
-  width: 300px;
-  margin: 50px auto;
-  padding: 20px;
-  background: white;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	padding: 20px;
+	background: var(--rad-grad-bg);
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: column;
+	align-content: flex-start;
+	justify-content: center;
+	align-items: center;
 }
 
 input,
 button {
-  width: 100%;
-  padding: 10px;
-  margin: 5px 0;
+	width: 100%;
+	padding: 10px;
+	margin: 5px 0;
+	text-align: center;
 }
 
 ul {
-  list-style: none;
-  padding: 0;
+	list-style: none;
+	padding: 0;
 }
 
 li {
-  background: #eaeaea;
-  margin: 5px 0;
-  padding: 10px;
-  cursor: pointer;
+	background: var(--rad-grad-bg);
+	margin: 5px 0;
+	padding: 10px;
+	cursor: pointer;
+	border-radius: 10px;
+}
+
+.task-list {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
 }
