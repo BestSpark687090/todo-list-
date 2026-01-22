@@ -30,7 +30,7 @@
 		  // Optional: preview_id used when running `wrangler dev` for local dev
 		  "preview_id": "<ID_OF_PREVIEW_KV_NAMESPACE_FOR_LOCAL_DEVELOPMENT>"
 		}
-	  ]
+	  ],
 	/**
 	 * Environment Variables
 	 * https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
@@ -42,6 +42,10 @@
 	 * Static Assets
 	 * https://developers.cloudflare.com/workers/static-assets/binding/
 	 */
+	 "assets": {
+		"directory": "./public/",
+		"binding": "ASSETS"
+	  }
 	// "assets": {  "directory": "./public/",  "binding": "ASSETS" }
 	/**
 	 * Service Bindings (communicate between multiple Workers)
