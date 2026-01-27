@@ -7,7 +7,18 @@
  *
  * Learn more at https://developers.cloudflare.com/workers/
  */
-
+let latestID = 0;
+async function getVals(env) {
+	let list = await env.KV.list();
+	let results = [];
+	let i = 0;
+	for (const key of list.keys) {
+		results.push({ title: await env.KV.get(key.name), id: i });
+		i++;
+	}
+	latestID = i--;
+	return JSON.stringify(results);
+}
 export default {
 	// async fetch(request, env, ctx) {
 	// 	// return new Response('Hello World!');
@@ -20,17 +31,14 @@ export default {
 			// TODO: Add your custom /api/* logic here.
 			switch (request.method) {
 				case 'GET':
-					let list = await env.KV.list();
-					let results = [];
-					let i = 0;
-					for (const key of list.keys) {
-						results.push({ title: await env.KV.get(key.name), id: i });
-						i++;
-					}
-					body = JSON.stringify(results);
+					body = await getVals(env);
 					break;
 				case 'POST':
-					body = 'hang on.';
+					// body = 'hang on.';
+					let req_b = await request.json();
+					console.log(req_b);
+					await env.KV.put(latestID, req_b.title);
+					body = await getVals(env);
 					break;
 				default:
 					return new Response('no.');
