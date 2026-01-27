@@ -11,7 +11,9 @@ document.getElementById('add-task').onclick = async () => {
 		body: JSON.stringify({ title }),
 	});
 	const task = await response.json();
-	addTaskToList(task);
+	// addTaskToList(task);
+	taskList.innerHTML = '';
+	task.forEach(addTaskToList);
 	newTaskInput.value = '';
 };
 

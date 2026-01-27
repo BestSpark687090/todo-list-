@@ -13,17 +13,16 @@ async function getVals(env) {
 	let results = [];
 	let i = 0;
 	for (const key of list.keys) {
-		results.push({ title: await env.KV.get(key.name), id: i });
+		results.push({ title: await env.KV.get(key.name), id: key.name });
 		i++;
 	}
 	latestID = i--;
+	results.sort(function (a, b) {
+		return a.id - b.id;
+	});
 	return JSON.stringify(results);
 }
 export default {
-	// async fetch(request, env, ctx) {
-	// 	// return new Response('Hello World!');
-
-	// },
 	async fetch(request, env, ctx) {
 		const url = new URL(request.url);
 		if (url.pathname.startsWith('/api/')) {
@@ -38,7 +37,15 @@ export default {
 					let req_b = await request.json();
 					console.log(req_b);
 					await env.KV.put(latestID, req_b.title);
-					body = await getVals(env);
+					let j = { title: req_b.title, id: latestID.toString() };
+					let json = JSON.parse(await getVals(env));
+					json[latestID] = j;
+					console.log(json);
+					body = JSON.stringify(json);
+					break;
+				case 'DELETE':
+					let id = parseInt(url.pathname.replace('/api/', ''));
+					await env.KV.delete(id);
 					break;
 				default:
 					return new Response('no.');
